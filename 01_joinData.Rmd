@@ -1,0 +1,237 @@
+---
+title: "Football vs democracy: get all data"
+author: "Duc-Quang Nguyen"
+date: "21 June 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(magrittr)
+library(tidyr)
+library(countrycode)
+library(htmltools)
+library(ggplot2)
+library(swiTheme)
+library(swiMap)
+library(swiRcharts)
+library(WDI)
+
+getWBdata <- F
+
+
+democracy.file <- "data/democracyIndex_2015_fromWP.csv"
+elo.file <-  "data/elo_football_ratings_2016_06_20.csv"
+players.file <- "data/Football_player_fifa.csv"
+gdp.file <- "data/gdpPerCapita_wb.csv"
+
+trad.file <- "input/football vs democracy - Sheet1.csv"
+
+if(exists("trad.file")) {
+  txt <- read.csv(trad.file, row.names = 1, stringsAsFactors = F)
+  # discard incomplete translations
+  cidx <- unique(which(txt =="" | is.na(txt), T)[,2])
+  if(length(cidx > 0)) {
+    warning(paste(colnames(txt)[cidx], collapse = "\t"), " languages will be discarded!", "\n")
+    txt <- txt[,-cidx, drop = F]
+  }
+  colnames(txt)  
+}
+
+```
+
+```{r get locally saved data}
+# 1. democracy index
+dem.read <- read.csv(democracy.file, skip = 1)
+dem <- dem.read %>% select(-Rank, -`Electoral.process.and.pluralism`, -`Functioning.of.government`,
+  -`Political.participation`, -`Political.culture`, -`Civil.liberties`)
+dem$iso2c <- countrycode(dem$Country, "country.name", "iso2c")
+
+# 2. ELO ranking
+elo <- read.csv(elo.file, skip = 1) %>% select(-rank)
+elo$iso2c <- countrycode(elo$team, "country.name", "iso2c")
+elo[which(is.na(elo$iso2c)),]
+
+# 3. number of players
+pla <- read.csv(players.file, stringsAsFactors = F) %>% select(Association, `All.Players`)
+# remove leading blank space
+pla$Association <- gsub("^ ", "", pla$Association)
+pla$All.Players <- as.numeric(gsub(",", "", pla$All.Players))
+pla$iso2c <- countrycode(pla$Association, "country.name", "iso2c")
+pla[which(is.na(pla$iso2c)),]
+
+```
+
+```{r get the GDP data from WB}
+if(getWBdata) {
+  # get GDP per capita at PPP 
+  data.dl <- WDI(
+    indicator = 'NY.GDP.PCAP.PP.CD',
+    start = 2000,  
+    end = 2016, 
+    extra = TRUE, 
+    cache = NULL
+  )
+  colnames(data.dl)[3] <- 'value'
+  
+  data.wb <- data.dl %>% 
+    select(-capital, -longitude, -latitude, -lending, -income) %>%
+    arrange(year) %>%
+    filter(!is.na(value))
+  # for each country get the latest observation
+  data.wb %<>% group_by(iso2c, country) %>% dplyr::summarise(gdp = last(value)) %>% ungroup()
+
+  write.csv(data.wb, file = gdp.file, row.names = F)  
+} else {
+  gdp.read <- read.csv(gdp.file, check.names = F, row.names = NULL)
+}
+
+```
+
+
+```{r join data}
+df <- Reduce(inner_join, list(dem, elo, pla, gdp.read))
+df %<>% rename(nPlayers = `All.Players`)
+
+## compute correlations
+# democracy vs elo
+cor.test(df$rating, df$Score)
+# democracy vs n° players
+cor.test(df$rating, df$nPlayers)
+# democracy vs GDP
+cor.test(df$rating, df$gdp)
+
+# linear regression
+foot.lm = lm(rating ~ Score, data=df)
+coeffs <- coefficients(foot.lm)
+
+x1 <- 1.7
+y1 = coeffs[1] + coeffs[2] * x1
+x2 <- 9.9
+y2 = coeffs[1] + coeffs[2] * x2
+reg <- data.frame(x = c(x1, x2), y = c(y1, y2), color ="black", name = "regression line")
+
+```
+
+
+```{r static chart and pull intersting statistics}
+dd <- df
+dd$toLabel <- F
+
+# top/bottom democracies
+n <- 10
+iso2.sub <- c('CN', 'IN')
+iso2.sub <- c(iso2.sub, dd %>% arrange(Score) %>% slice(1:n) %>% select(iso2c) %>% unlist(use.names = F))
+iso2.sub <- c(iso2.sub, dd %>% arrange(desc(Score)) %>% slice(1:n) %>% select(iso2c) %>% unlist(use.names = F))
+# top/bottom football
+iso2.sub <- c(iso2.sub, dd %>% arrange(desc(rating)) %>% slice(1:n) %>% select(iso2c) %>% unlist(use.names = F))
+iso2.sub <- c(iso2.sub, dd %>% arrange(rating) %>% slice(1:n) %>% select(iso2c) %>% unlist(use.names = F))
+# the largest residuals
+iso2.sub <- c(iso2.sub, dd[as.numeric(names(tail(sort(abs(resid(foot.lm))), 10))), 'iso2c'])
+
+dd[as.numeric(names(tail(sort(resid(foot.lm)), 10))), ]
+dd[as.numeric(names(head(sort(resid(foot.lm)), 10))), ]
+
+# no labels for countries no iso2.sub
+dd[dd$iso2c %in% iso2.sub, 'toLabel'] <- T
+
+ggplot(data=dd, aes(x=Score, y = rating)) + geom_point(aes(size = nPlayers), alpha = 0.9, colour = "#336666") + 
+  swi_theme()  + scale_size(range = c(3, 12)) +
+  geom_text(aes(label=ifelse(toLabel, as.character(country),'')), hjust=0, vjust=-0.5, family = "OpenSans-CondensedLight") + 
+  geom_smooth(method=lm,  se=FALSE, color = "black")  # Add linear regression line
+             
+```
+
+
+```{r interactive graphic}
+library(highcharter)
+library("viridisLite")
+
+lang <- 'EN'
+
+for (lang in colnames(txt)) {
+  
+  dd <- df
+  
+  dd$tooltip <- paste0(
+    '<table cellpadding="1" style="line-height:1.2">',
+    '<tr><td><strong>', countryTranslation(dd$iso2c, lang)[,2],'</strong></td></tr>',
+    '<tr><td>', txt["di.tp",lang], ': ', 
+    dd$Score, '</td></tr>',
+    '<tr><td>', txt["fo.tp",lang], ": ", dd$rating, '</td></tr>',
+    '<tr><td>', txt["pl.tp",lang], ": ", round(dd$nPlayers / 10^3), '</td></tr>',
+    '<tr><td>', txt["gd.tp",lang], ": ", round(dd$gdp), '</td></tr>',
+    '</table>')
+  
+  
+  hSeries <- hSeries2(
+    data.frame(
+      x = dd$Score,
+      y = dd$rating,
+      z = dd$nPlayers,
+      color = colorize_vector(-dd$gdp, "A"),
+      name = dd$tooltip,
+      series = dd$iso2c
+    ), 
+    "series")
+  
+  bc <- highchart(height = 770) %>%
+    hc_chart(type = "bubble", spacing = c(7, 4, 4, 0)) %>%
+    hc_add_series_list(hSeries) %>% 
+    hc_tooltip(
+      formatter = JS("function() { return this.point.name;}"), 
+      useHTML = TRUE,
+      borderWidth = 2
+    ) %>%
+    hc_plotOptions(bubble = list(maxSize = 55)) %>%
+    hc_legend(enabled = F) %>% hc_add_theme(hc_theme_swi)
+  
+  fc <- bc %>%  hc_add_series_df(
+    name = "Regression", 
+    type = "line",
+    data = reg
+  )
+  
+  fc %<>%  hc_yAxis(
+    title = list(text = txt['y.title', lang]),
+    floor = 500
+  ) %>%
+    hc_xAxis(title = list(text = txt['x.title', lang])) %>%
+    hc_plotOptions(
+      bubble = list(
+        dataLabels = list(
+          enabled = T, 
+          format = '{series.name}', 
+          style = list(
+            textShadow = F,
+            fontSize = "0.6em"
+          )
+        )),
+      line = list(marker = list(enabled = FALSE), lineWidth = 1, dashStyle = "dash")
+    )
+  
+  source <- paste0( 
+    txt['source', lang], ": ", htmlLink(txt['di.url', lang], txt['di.src', lang]), ", ",
+    htmlLink(txt['fo.url', lang], txt['fo.src', lang]), ", ",
+    htmlLink(txt['pl.url', lang], txt['pl.src', lang]), ", ",
+    htmlLink(txt['gd.url', lang], txt['gd.src', lang]), " | ",
+    htmlLink("http://www.swissinfo.ch", "swissinfo.ch")
+  )
+    
+  fc %<>% hc_title(text = txt['main.title', lang]) %>%
+    hc_subtitle(text = paste0(txt['descr', lang], "<br>", txt['descr2', lang]))
+  
+  save_html(
+    tags$html(
+      tags$head(includeHTML(style_swi_highcharter())),
+      tags$body(    
+        div(class="graphic", fc),
+        div(id = "cite", HTML(source)),
+        HTML(iframeresizer)
+      )
+    ), file = paste0("democracyFootball_", lang, ".html"), libdir = "js", background = "#f2f2f2"
+  )     
+  
+}
+
+```
