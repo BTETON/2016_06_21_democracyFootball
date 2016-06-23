@@ -204,7 +204,7 @@ for (lang in colnames(txt)) {
           format = '{series.name}', 
           style = list(
             textShadow = F,
-            fontSize = "0.6em"
+            fontSize = "0.65em"
           )
         )),
       line = list(marker = list(enabled = FALSE), lineWidth = 1, dashStyle = "dash")
