@@ -1,7 +1,7 @@
 code,EN,FR,DE,IT,PT,AR,RU,ES,JA,ZH
 main.title,Is Democracy good for football (or vice versa)?,,,,,,,,,
-descr,"Democracy index vs football performances by country. The bubbles are sized according to the number of football players by country. Colors represent GDP per capita, darker colour hue means high GDP. ",,,,,,,,,
-descr2,"The line corresponds to the linear regression between democracy index vs football rating (rho correlation: 0.36, p-value: 1.3e-06)",,,,,,,,,
+descr,"Democracy index vs football performances by country. The bubbles are sized according to the number of football players by country. Colours represent GDP per capita, darker colour hue means higher GDP. ",,,,,,,,,
+descr2,"The line corresponds to the linear regression between democracy index and football rating (rho correlation: 0.36, p-value: 1.3e-06)",,,,,,,,,
 source,Source,source,Quelle,Fonte,fonte,المصدر,Источник,Fuente,出典,来源
 y.title,Rating for national football team (ELO),,,,,,,,,
 x.title,Democracy index,,,,,,,,,

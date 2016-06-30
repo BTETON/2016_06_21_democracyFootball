@@ -175,7 +175,7 @@ for (lang in colnames(txt)) {
     ), 
     "series")
   
-  bc <- highchart(height = 770) %>%
+  bc <- highchart(height = 580) %>%
     hc_chart(type = "bubble", spacing = c(7, 4, 4, 0)) %>%
     hc_add_series_list(hSeries) %>% 
     hc_tooltip(
@@ -183,7 +183,7 @@ for (lang in colnames(txt)) {
       useHTML = TRUE,
       borderWidth = 2
     ) %>%
-    hc_plotOptions(bubble = list(maxSize = 55)) %>%
+    hc_plotOptions(bubble = list(maxSize = "15%", minSize = 10)) %>%
     hc_legend(enabled = F) %>% hc_add_theme(hc_theme_swi)
   
   fc <- bc %>%  hc_add_series_df(
@@ -204,7 +204,8 @@ for (lang in colnames(txt)) {
           format = '{series.name}', 
           style = list(
             textShadow = F,
-            fontSize = "0.65em"
+            fontSize = "0.8em",
+            fontWeight = "normal"
           )
         )),
       line = list(marker = list(enabled = FALSE), lineWidth = 1, dashStyle = "dash")

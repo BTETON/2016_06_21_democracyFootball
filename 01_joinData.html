@@ -333,7 +333,7 @@ for (lang in colnames(txt)) {
     ), 
     &quot;series&quot;)
   
-  bc &lt;- highchart(height = 770) %&gt;%
+  bc &lt;- highchart(height = 580) %&gt;%
     hc_chart(type = &quot;bubble&quot;, spacing = c(7, 4, 4, 0)) %&gt;%
     hc_add_series_list(hSeries) %&gt;% 
     hc_tooltip(
@@ -341,7 +341,7 @@ for (lang in colnames(txt)) {
       useHTML = TRUE,
       borderWidth = 2
     ) %&gt;%
-    hc_plotOptions(bubble = list(maxSize = 55)) %&gt;%
+    hc_plotOptions(bubble = list(maxSize = &quot;15%&quot;, minSize = 10)) %&gt;%
     hc_legend(enabled = F) %&gt;% hc_add_theme(hc_theme_swi)
   
   fc &lt;- bc %&gt;%  hc_add_series_df(
@@ -362,7 +362,8 @@ for (lang in colnames(txt)) {
           format = '{series.name}', 
           style = list(
             textShadow = F,
-            fontSize = &quot;0.65em&quot;
+            fontSize = &quot;0.8em&quot;,
+            fontWeight = &quot;normal&quot;
           )
         )),
       line = list(marker = list(enabled = FALSE), lineWidth = 1, dashStyle = &quot;dash&quot;)
