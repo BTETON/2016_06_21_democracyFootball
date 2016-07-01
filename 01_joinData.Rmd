@@ -147,7 +147,7 @@ ggplot(data=dd, aes(x=Score, y = rating)) + geom_point(aes(size = nPlayers), alp
 library(highcharter)
 library("viridisLite")
 
-lang <- 'EN'
+#lang <- 'EN'
 
 for (lang in colnames(txt)) {
   
@@ -194,9 +194,11 @@ for (lang in colnames(txt)) {
   
   fc %<>%  hc_yAxis(
     title = list(text = txt['y.title', lang]),
-    floor = 500
+    floor = 500,
+    opposite = ifelse(lang == "AR", TRUE, FALSE)
   ) %>%
-    hc_xAxis(title = list(text = txt['x.title', lang])) %>%
+    hc_xAxis(title = list(text = txt['x.title', lang]), 
+             reversed = ifelse(lang == "AR", TRUE, FALSE)) %>%
     hc_plotOptions(
       bubble = list(
         dataLabels = list(
@@ -219,8 +221,12 @@ for (lang in colnames(txt)) {
     htmlLink("http://www.swissinfo.ch", "swissinfo.ch")
   )
     
-  fc %<>% hc_title(text = txt['main.title', lang]) %>%
-    hc_subtitle(text = paste0(txt['descr', lang], "<br>", txt['descr2', lang]))
+  fc %<>% hc_title(
+    text = txt['main.title', lang], 
+    align = ifelse(lang == 'AR', "center", "left")
+  ) %>%
+    hc_subtitle(text = paste0(txt['descr', lang], "<br>", txt['descr2', lang]),
+                align = ifelse(lang == 'AR', "center", "left"))
   
   save_html(
     tags$html(

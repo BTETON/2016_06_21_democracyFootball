@@ -1,19 +1,37 @@
 code,EN,FR,DE,IT,PT,AR,RU,ES,JA,ZH
-main.title,Is Democracy good for football (or vice versa)?,,,,,,,,,
-descr,"Democracy index vs football performances by country. The bubbles are sized according to the number of football players by country. Colours represent GDP per capita, darker colour hue means higher GDP. ",,,,,,,,,
-descr2,"The line corresponds to the linear regression between democracy index and football rating (rho correlation: 0.36, p-value: 1.3e-06)",,,,,,,,,
-source,Source,source,Quelle,Fonte,fonte,المصدر,Источник,Fuente,出典,来源
-y.title,Rating for national football team (ELO),,,,,,,,,
-x.title,Democracy index,,,,,,,,,
-di.tp,Democracy index,,,,,,,,,
-fo.tp,Football ratings (ELO),,,,,,,,,
-pl.tp,Number of football player (thousands),,,,,,,,,
-gd.tp,"GDP per capita (PPP, USD)",,,,,,,,,
-di.src,Democracy Index 2015 (The Economist Intelligence Unit),,,,,,,,,
-fo.src,World Football Elo Ratings (2016-06-20),,,,,,,,,
-pl.src,FIFA,,,,,,,,,
-gd.src,World Bank,,,,,,,,,
-di.url,http://www.eiu.com/public/topical_report.aspx?campaignid=DemocracyIndex2015,,,,,,,,,
-fo.url,http://www.eloratings.net/world.html,,,,,,,,,
-pl.url,http://www.fifa.com/worldfootball/bigcount/registeredplayers.html,,,,,,,,,
-gd.url,http://data.worldbank.org/indicator/NY.GDP.PCAP.PP.CD,,,,,,,,,
+main.title,Is Democracy good for football (or vice versa)?,Démocratie et football font-ils bon ménage (ou vice-versa)?,Ist Demokratie gut für Fussball (und umgekehrt)?,Democrazia e calcio vanno a braccetto (o viceversa)?,,هل الديمقراطية مفيدة لكرة القدم ؟ (و هل العكس أيضا صحيح),Хороша ли демократия для футбола (и наоборот)?,,,民主与足球之间是相得益彰的关系吗？
+descr,"Democracy index vs football performances by country. The bubbles are sized according to the number of football players by country. Colours represent GDP per capita, darker colour hue means higher GDP. ","Index de démocratie vs. performances footballistiques selon les pays. La taille des cercles varie en fonction du nombre de licenciés par pays. Les couleurs représentent le Produit Intérieur Brut par habitant. Plus une teinte est foncée, plus le PIB est élevé.",Demokratie-Index vs. Fussballstärke nach Ländern. Grösse der Kreise nach Anzahl Spielern. Die Farben: Bruttosozialprodukt (BSP) pro Kopf; dunkel bedeutet höheres BSP. ,Indice di democrazia vs prestazioni calcistiche per paese. Le bolle sono proporzionali al numero di calciatori per paese. I colori rappresentano il prodotto interno lordo (PIL) pro capite; più il colore è scuro più il PIL è elevato.,,مؤشر الديمقراطية مقابل أداء كرة القدم حسب البلد. حجم الفقاعات وفقا لعدد لاعبي كرة القدم حسب البلد. وتمثل الألوان اجمالي الناتج المحلّي بحسب الفرد، وكلما كان اللون اعمق معناه ارتفاع اجمالي الناتج المحلّي.,"
+
+Индекс демократии в соотношении к футбольным успехам страны. Размер кругов соответствует количеству футболистов по стране. Цвета обозначают ВВП на душу населения, чем темнее цвет,тем более высокий ВВП. 
+
+",,,各国民主指数与足球实力的对比，圆圈的大小与队员的数量相呼应，颜色代表一个国家国内人均生产总值，颜色越深，越高。
+descr2,"The line corresponds to the linear regression between democracy index and football rating (rho correlation: 0.36, p-value: 1.3e-06)","La ligne représente la régression linéaire entre l'index de démocratie et le classement en matière de football (corrélation rho: 0.36, p-value: 1.3e-06)","Die Linie entspricht der linearen Regression zwischen Demokratie-Index und Fussball-Rating (rho Korrelation: 0,36, p-Wert: 1.3d-06)","La linea corrisponde alla regressione lineare tra l'indice di democrazia e il ranking della nazionale di calcio (correlazione: 0,36, valore p: 1.3e-06)",,"الخط يؤشّر للانحدار الخطي بين مؤشر الديمقراطية والتصنيف في مجال كرة القدم ( العلاقة: 0.36، القيمة: 1.3e-06)
+","Линия представляет собой линейную регрессию между индексом демократии и футбольным рейтингом (rho корреляция: 0.36, p-value: 1.3e-06)",,,"线条显示民主指数与足球强弱的递减关系 (rho值: 0.36, p-value: 1.3e-06)"
+source,Source,Source,Quelle,Fonte,fonte,المصدر,Источник,Fuente,出典,来源
+y.title,Rating for national football team (ELO),Classement mondial des équipes nationales de football (ELO) ,Rangierung Nationalmannschaft (nach ELO),Ranking della nazionale di calcio (ELO) ,,ترتيب المنتخب الوطني لكرة القدم بحسب نظام قياس خبرة اللاعبين,"
+
+Рейтинг Эло
+национальной футбольной команды
+
+",,,国家队分组(按照ELO等级分制度)
+x.title,Democracy index,Index de démocratie,Demokratie-Index,Indice di democrazia   ,,مؤشّر الديمقراطية,Индекс демократии,,,民主指数
+di.tp,Democracy index,Index de démocratie,Demokratie-Index,Indice di democrazia ,,مؤشّر الديمقراطية,Индекс демократии,,,民主指数
+fo.tp,Football ratings (ELO),Classement de football (ELO),Fussball-Rangierung (ELO),Ranking calcio (ELO),,ترتيب كرة القدم بحسب نظام قياس خبرة اللاعبين,"
+
+Футбольный рейтинг Эло
+
+",,,等级分制度(ELO)
+pl.tp,Number of football player (thousands),Nombre de joueurs (milliers),Anzahl Fussballspieler (in 1000),Numero di calciatori (in migliaia),,عدد لاعبي كرة القدم (بالآلاف),"
+
+Число футбольных игроков (в 1000)
+
+",,,队员数量(千人中)
+gd.tp,"GDP per capita (PPP, USD)",PIB par habitant (en dollars),BSP pro Kopf in Dollar,PIL pro capite (in dollari),,إجمالي الناتج المحلي بالنسبة للفرد,ВНП на душу населения в долларах,,,人均国内生产总值(美金)
+di.src,Democracy Index 2015 (The Economist Intelligence Unit),Index de démocratie 2015 (The Economist Intelligence Unit),Demokratie-Index 2015 (The Economist Intelligence Unit),Indice di democrazia 2015 (The Economist Intelligence Unit),,مؤشّر الديمقراطية 2015 (وحدة الخبرة بالإيكونمست),Индекс демократии 2015 (Классификация The Economist Intelligence Unit),,,2015年民主指数(经济学人集团)
+fo.src,World Football Elo Ratings (2016-06-20),Classement mondial de football ELO (20.06.2016),"Fussball-Weltrangliste (ELO, Stand 20.6.2016)",Rankig mondiale di calcio ELO (20.06.2016),,التصنيف العالمي لكرة القدم (20 يونيو 2016),Футбольный рейтинг Эло (2016-06-20),,,"世界足球排名(ELO, 2016年6月21日更新)"
+pl.src,FIFA,FIFA,FIFA,FIFA,,الإتحاد الدولي لكرة القدم,ФИФА,,,国际足联FIFA
+gd.src,World Bank,Banque mondiale,Weltbank,Banca Mondiale,,البنك الدولي,Всемирный банк,,,世界银行
+di.url,http://www.eiu.com/public/topical_report.aspx?campaignid=DemocracyIndex2015,http://www.eiu.com/public/topical_report.aspx?campaignid=DemocracyIndex2015,http://www.eiu.com/public/topical_report.aspx?campaignid=DemocracyIndex2015,http://www.eiu.com/public/topical_report.aspx?campaignid=DemocracyIndex2015,http://www.eiu.com/public/topical_report.aspx?campaignid=DemocracyIndex2015,http://www.eiu.com/public/topical_report.aspx?campaignid=DemocracyIndex2015,http://www.eiu.com/public/topical_report.aspx?campaignid=DemocracyIndex2015,http://www.eiu.com/public/topical_report.aspx?campaignid=DemocracyIndex2015,http://www.eiu.com/public/topical_report.aspx?campaignid=DemocracyIndex2015,http://www.eiu.com/public/topical_report.aspx?campaignid=DemocracyIndex2015
+fo.url,http://www.eloratings.net/world.html,http://www.eloratings.net/world.html,http://www.eloratings.net/world.html,http://www.eloratings.net/world.html,http://www.eloratings.net/world.html,http://www.eloratings.net/world.html,http://www.eloratings.net/world.html,http://www.eloratings.net/world.html,http://www.eloratings.net/world.html,http://www.eloratings.net/world.html
+pl.url,http://www.fifa.com/worldfootball/bigcount/registeredplayers.html,http://www.fifa.com/worldfootball/bigcount/registeredplayers.html,http://www.fifa.com/worldfootball/bigcount/registeredplayers.html,http://www.fifa.com/worldfootball/bigcount/registeredplayers.html,http://www.fifa.com/worldfootball/bigcount/registeredplayers.html,http://www.fifa.com/worldfootball/bigcount/registeredplayers.html,http://www.fifa.com/worldfootball/bigcount/registeredplayers.html,http://www.fifa.com/worldfootball/bigcount/registeredplayers.html,http://www.fifa.com/worldfootball/bigcount/registeredplayers.html,http://www.fifa.com/worldfootball/bigcount/registeredplayers.html
+gd.url,http://data.worldbank.org/indicator/NY.GDP.PCAP.PP.CD,http://data.worldbank.org/indicator/NY.GDP.PCAP.PP.CD,http://data.worldbank.org/indicator/NY.GDP.PCAP.PP.CD,http://data.worldbank.org/indicator/NY.GDP.PCAP.PP.CD,http://data.worldbank.org/indicator/NY.GDP.PCAP.PP.CD,http://data.worldbank.org/indicator/NY.GDP.PCAP.PP.CD,http://data.worldbank.org/indicator/NY.GDP.PCAP.PP.CD,http://data.worldbank.org/indicator/NY.GDP.PCAP.PP.CD,http://data.worldbank.org/indicator/NY.GDP.PCAP.PP.CD,http://data.worldbank.org/indicator/NY.GDP.PCAP.PP.CD

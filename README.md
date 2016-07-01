@@ -1,19 +1,11 @@
+Here is the R code and data used to create [this short story on democracy & football](http://www.swissinfo.ch/eng/opinion_democracy-vs-football--1-1/42247206)
+
 ## Data
 
 * [Players by country FIFA](http://www.fifa.com/worldfootball/bigcount/registeredplayers.html) 
   * In excel, replace all commas, by nothing 
 * [Democracy index](https://en.wikipedia.org/wiki/Democracy_Index) Data originally from the [Economist](http://www.eiu.com/public/topical_report.aspx?campaignid=DemocracyIndex2015)
 * [ELO Ratings](http://www.eloratings.net/world.html)
-
-
-## Links
-
-* [Sport in developing countries - wealth vs sport](http://assets.sportanddev.org.sad.vm.iway.ch/downloads/79__sport_in_developing_countries.pdf)
-* [Olympics vs economy](http://freakonomics.com/2014/02/12/want-to-win-olympic-medals-fix-your-economy-first/)
-* [ strong correlation between economic growth and athletic achievement ](http://www.cfr.org/world/economy-olympics/p28806)
-* [BBC Democracy in sport: An uneasy relationship with politics](http://www.bbc.com/sport/football/30876799)
-* [2014 FIFA World Cup: How Connected Is A Country's Soccer And Economic Prominence?](http://www.forbes.com/sites/prishe/2014/06/05/2014-fifa-world-cup-how-connected-is-a-countrys-soccer-and-economic-prominence/#7289d8d95432)
-
 
 
 ### Exclusion of liability

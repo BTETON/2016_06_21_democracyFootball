@@ -305,7 +305,7 @@ ggplot(data=dd, aes(x=Score, y = rating)) + geom_point(aes(size = nPlayers), alp
 <pre class="r"><code>library(highcharter)
 library(&quot;viridisLite&quot;)</code></pre>
 <pre><code>## Warning: package 'viridisLite' was built under R version 3.2.4</code></pre>
-<pre class="r"><code>lang &lt;- 'EN'
+<pre class="r"><code>#lang &lt;- 'EN'
 
 for (lang in colnames(txt)) {
   
@@ -352,9 +352,11 @@ for (lang in colnames(txt)) {
   
   fc %&lt;&gt;%  hc_yAxis(
     title = list(text = txt['y.title', lang]),
-    floor = 500
+    floor = 500,
+    opposite = ifelse(lang == &quot;AR&quot;, TRUE, FALSE)
   ) %&gt;%
-    hc_xAxis(title = list(text = txt['x.title', lang])) %&gt;%
+    hc_xAxis(title = list(text = txt['x.title', lang]), 
+             reversed = ifelse(lang == &quot;AR&quot;, TRUE, FALSE)) %&gt;%
     hc_plotOptions(
       bubble = list(
         dataLabels = list(
@@ -377,8 +379,12 @@ for (lang in colnames(txt)) {
     htmlLink(&quot;http://www.swissinfo.ch&quot;, &quot;swissinfo.ch&quot;)
   )
     
-  fc %&lt;&gt;% hc_title(text = txt['main.title', lang]) %&gt;%
-    hc_subtitle(text = paste0(txt['descr', lang], &quot;&lt;br&gt;&quot;, txt['descr2', lang]))
+  fc %&lt;&gt;% hc_title(
+    text = txt['main.title', lang], 
+    align = ifelse(lang == 'AR', &quot;center&quot;, &quot;left&quot;)
+  ) %&gt;%
+    hc_subtitle(text = paste0(txt['descr', lang], &quot;&lt;br&gt;&quot;, txt['descr2', lang]),
+                align = ifelse(lang == 'AR', &quot;center&quot;, &quot;left&quot;))
   
   save_html(
     tags$html(
